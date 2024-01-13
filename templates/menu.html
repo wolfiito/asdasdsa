@@ -1,0 +1,92 @@
+
+<div class="menu">
+    <ion-icon name="menu-outline"></ion-icon>
+    <ion-icon name="close-outline"></ion-icon>
+</div>
+
+<div class="barra-lateral">
+    <div>
+        <div class="nombre-pagina">
+            <!-- <ion-icon id="cloud" name="arrow-forward"></ion-icon>-->
+            <h1>Anastásis</h1>
+        </div>
+    </div>
+
+    <nav class="navegacion">
+        <ul>
+            <li>
+                <a onclick="mostrarContenido('inicio')">
+                    <ion-icon class="fas fa-solid fa-church"></ion-icon>
+                    <span>Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a onclick="mostrarContenido('horaSilenciosa')">
+                    <ion-icon class="fas fa-solid fa-book-bible"></ion-icon>
+                    <span>Devocional</span>
+                </a>
+            </li>
+            <li>
+                <a onclick="mostrarContenido('oracion')">
+                    <ion-icon class="fas fa-solid fa-person-praying"></ion-icon>
+                    <span>Oración</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <ion-icon class="fas fa-solid fa-brain"></ion-icon>
+                    <span>Memorización</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tabla_puntos_sumar">
+                    <ion-icon class="fas fa-solid fa-ranking-star" ></ion-icon>
+                    <span>Puntuación</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <ion-icon class="fas fa-solid fa-gear"></ion-icon>
+                    <span>Ajustes</span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                    <ion-icon class="fas fa-solid fa-right-from-bracket"></ion-icon>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div>
+        <div class="linea"></div>
+
+        <div class="modo-oscuro">
+            <div class="info">
+                <ion-icon name="moon"></ion-icon>
+                <span>Dark</span>
+            </div>
+            <div class="switch">
+                <div class="base">
+                    <div class="circulo">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="usuario">
+            <img src="static/images/{{ usuario }}.png" alt="sdfasfdsafsa">
+            <div class="info-usuario">
+                <div class="nombre-email">
+                    <span class="nombre">{{ usuario }}</span>
+                    <!-- <span class="email">jhampier@gmail.com</span> -->
+                </div>
+                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+            </div>
+        </div>
+    </div>
+
+</div>
+

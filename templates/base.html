@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block estilos %}
+        
+    {% endblock estilos %}
+    <title>
+        {% block title %}
+            ICBA-Jovenes | 
+        {% endblock title %}
+    </title>
+</head>
+<body>
+    <nav>
+        {% include 'menu.html' %}
+    </nav>
+    <main>
+        {% block contenido %}
+        
+        {% endblock contenido %}
+    </main>
+
+    <script>
+        {% block script %}
+        
+        {% endblock script %}
+    </script>
+</body>
+</html>
