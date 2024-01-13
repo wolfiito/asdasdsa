@@ -7,29 +7,33 @@
 <div class="barra-lateral">
     <div>
         <div class="nombre-pagina">
-            <!-- <ion-icon id="cloud" name="arrow-forward"></ion-icon>-->
-            <h1>Anastásis</h1>
+            <ion-icon id="cloud" name="caret-forward-outline"></ion-icon>
+            <span>Anástasis</span>
         </div>
+        <button class="boton">
+            <ion-icon name="add-outline"></ion-icon>
+            <span>Create new</span>
+        </button>
     </div>
 
     <nav class="navegacion">
         <ul>
             <li>
-                <a onclick="mostrarContenido('inicio')">
+                <a id="church" href="/inicio">
                     <ion-icon class="fas fa-solid fa-church"></ion-icon>
                     <span>Inicio</span>
                 </a>
             </li>
             <li>
-                <a onclick="mostrarContenido('horaSilenciosa')">
+                <a href="/hora_silenciosa">
                     <ion-icon class="fas fa-solid fa-book-bible"></ion-icon>
                     <span>Devocional</span>
                 </a>
             </li>
             <li>
                 <a onclick="mostrarContenido('oracion')">
-                    <ion-icon class="fas fa-solid fa-person-praying"></ion-icon>
-                    <span>Oración</span>
+                    <ion-icon class="fas fa-solid fa-hands-praying"></ion-icon>
+                    <span>Oracion</span>
                 </a>
             </li>
             <li>
@@ -40,8 +44,8 @@
             </li>
             <li>
                 <a href="/tabla_puntos_sumar">
-                    <ion-icon class="fas fa-solid fa-ranking-star" ></ion-icon>
-                    <span>Puntuación</span>
+                    <ion-icon class="fas fa-solid fa-ranking-star"></ion-icon>
+                    <span>Puntos</span>
                 </a>
             </li>
             <li>
@@ -51,7 +55,7 @@
                 </a>
             </li>
             <li>
-                <a href="/logout">
+                <a href="#">
                     <ion-icon class="fas fa-solid fa-right-from-bracket"></ion-icon>
                     <span>Logout</span>
                 </a>
@@ -64,29 +68,28 @@
 
         <div class="modo-oscuro">
             <div class="info">
-                <ion-icon name="moon"></ion-icon>
-                <span>Dark</span>
+                <ion-icon name="moon-outline"></ion-icon>
+                <span>Drak Mode</span>
             </div>
             <div class="switch">
                 <div class="base">
                     <div class="circulo">
-
+                        
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="usuario">
-            <img src="static/images/{{ usuario }}.png" alt="sdfasfdsafsa">
+            <img src="../static/images/{{ usuario }}.jpg" alt="">
             <div class="info-usuario">
                 <div class="nombre-email">
                     <span class="nombre">{{ usuario }}</span>
-                    <!-- <span class="email">jhampier@gmail.com</span> -->
+                    <span class="email" style="opacity: 0;">jhampier@gmail.com</span>
                 </div>
                 <ion-icon name="ellipsis-vertical-outline"></ion-icon>
             </div>
         </div>
     </div>
-
+    
 </div>
-

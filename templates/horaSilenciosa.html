@@ -1,0 +1,56 @@
+{% extends 'usuario.html' %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="../static/css/styleHoraSilenciosa.css">
+{% endblock head %}
+
+{% block title %}
+{{ super() }}
+Devocional
+{% endblock title %}
+
+{% block contenido %}
+    <div class="container">
+        <section class="contenedor_cita">
+            {% if entrada_dia_actual %}
+                <h2 class="form-title">Dios te bendiga, <strong>{{ usuario }}</strong>!</h2>
+                <p class="cita_biblica"><a class="link-cita" href="{{entrada_dia_actual['link']}}" target="_blank">{{
+                        entrada_dia_actual['cita_biblica'] }} <i class="fa-solid fa-fingerprint"
+                            style="color: #F60835;"></i></a></p>
+                <p class="dia_dev">{{ entrada_dia_actual['fecha'] }}</p>
+            {% endif %}
+        </section>
+
+        <section class="contenedor" id="contenedor">
+            <section class="devocional-container">
+                {% if entrada_dia_actual %}
+                <h3 class="comentario">Comentario</h3>
+                <p class="hs_text">{{ entrada_dia_actual['comentario'] }}</p>
+                <div class="contenedor_vive">
+                    <h3 class="vivelo">Vívelo</h3>
+                    <p class="hs_text">{{ entrada_dia_actual['vivelo'] }}</p>
+                </div>
+                {% else %}
+                <p class="hs_text">No hay devocional disponible para el día de hoy.</p>
+                {% endif %}
+            </section>
+
+            <form method="POST" action="/hora_silenciosa">
+                <label for="exp_autor" class="form-label exp_autor">¿Qué expresa el autor?</label>
+                <textarea class="form-textarea" id="exp_autor" name="exp_autor" required rows="5"></textarea>
+                <label for="apl_vida" class="form-label apl_vida">¿Cómo aplicarlo a tu vida?</label>
+                <textarea class="form-textarea" id="apl_vida" name="apl_vida" required rows="5"></textarea>
+                <label for="dudas" class="form-label dudas">Dudas sobre cualquier tema</label>
+                <textarea class="form-textarea" id="dudas" name="dudas" rows="5"></textarea>
+                <button type="submit" class="form-button">Guardar</button>
+            </form>
+
+        </section>
+    </div>
+{% endblock contenido %}
+
+
+{% block scripts %}
+
+{% endblock scripts %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block title %}
+    {{ super() }}
+    
+{% endblock title %}
+
+    
+
+    <div class="contenedor-principal">
+        {% block contenido %}
+        {% endblock contenido %}
+    </div>
+
+    
+    
+    
+{% block scripts %}
+    {{ super() }}
+{% endblock scripts %}
+    <!-- <script src="{{ url_for('static', filename='js/sumar_puntos_por_equipo.js') }}"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> -->

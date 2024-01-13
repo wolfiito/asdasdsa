@@ -1,31 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block estilos %}
-        
-    {% endblock estilos %}
+
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/styleMenu.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+        <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/estilos.css') }}"> -->
+        <link rel="icon" href="static\images\logosheraga.png" type="image/x-icon">
+    {% endblock head %}
+
     <title>
         {% block title %}
-            ICBA-Jovenes | 
+        ICBA-Jovenes |
         {% endblock title %}
     </title>
-</head>
-<body>
-    <nav>
-        {% include 'menu.html' %}
-    </nav>
-    <main>
+
+
+    {% include 'menu.html' %}
+
+    <main class="contenedor-principal">
         {% block contenido %}
-        
+           
         {% endblock contenido %}
     </main>
 
-    <script>
-        {% block script %}
-        
-        {% endblock script %}
-    </script>
-</body>
-</html>
+
+    {% block script %}
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script src="{{ url_for('static', filename='js/contenido.js') }}"></script>
+        <script src="../static/js/menu.js"></script>
+    {% endblock script %}
+    
