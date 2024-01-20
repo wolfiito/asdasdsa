@@ -1,8 +1,8 @@
 {% extends 'usuario.html' %}
 
 {% block head %}
-{{ super() }}
-<link rel="stylesheet" type="text/css" href="../static/css/styleHoraSilenciosa.css">
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="../static/css/styleHoraSilenciosa.css">
 {% endblock head %}
 
 {% block title %}
@@ -17,7 +17,7 @@ Devocional
                 <h2 class="form-title">Dios te bendiga, <strong>{{ usuario }}</strong>!</h2>
                 <p class="cita_biblica"><a class="link-cita" href="{{entrada_dia_actual['link']}}" target="_blank">{{
                         entrada_dia_actual['cita_biblica'] }} <i class="fa-solid fa-fingerprint"
-                            style="color: #F60835;"></i></a></p>
+                            style="color: #E8A565;"></i></a></p>
                 <p class="dia_dev">{{ entrada_dia_actual['fecha'] }}</p>
             {% endif %}
         </section>

@@ -2,11 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for,flash, json
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import json, os
 from datetime import timedelta
+
 app = Flask(__name__)
 
 app.secret_key = 'S0l03nt1D10s'  # Cambia esto por una clave secreta segura.
 
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 ######################## Manejo de inicio de Sesión ########################
 # Configuración de Flask-Login
 login_manager = LoginManager(app)
@@ -55,24 +56,52 @@ def logout():
 def inicio():
     rol = current_user.role
     usuario = current_user.id
-    print(usuario)
     return render_template('calendario.html', rol = rol, usuario=usuario)
 ############################################################################################
 
 
 ############################ Bloque para la oración ############################
 
-# Retornamos la pagina de oracion
-@app.route('/oracion', methods=['GET', 'POST'])
-@login_required
-def oracion():
-    usuario = current_user.id
-    return render_template('oracion.html', usuario=usuario)
+def cargar_tareas():
+    with open('tareas.json', 'r') as json_file:
+        tareas = json.load(json_file)
+    return tareas
 
-# En el contenido actualizamos la pagina de oraciones personales
-@app.route('/oracionesPersonales')
-def oraciones_personales():
-    return render_template('oracionesPersonales.html')
+@app.route('/oracion')
+def mostrarTareasActivas():
+    tareas = cargar_tareas()
+    return render_template('mostrarTareaActiva.html', tareas=tareas)
+
+@app.route('/marcar_completa', methods=['POST'])
+def marcar_completa():
+    data = request.get_json()
+    index = data.get('index', None)
+    testimonio = data.get('testimonio', '')  # Obtener el testimonio ingresado por el usuario
+
+    if index is not None:
+        index = int(index) - 1
+
+        with open('tareas.json', 'r') as json_file:
+            tareas = json.load(json_file)
+
+            if 0 <= index < len(tareas):
+                tarea = tareas[index]
+
+                if tarea['isActive'] == 'True':
+                    tarea['isActive'] = 'False'
+                    tarea['fechaFinal'] = format_date(datetime.now(), format='d-MMMM-y', locale='es_ES')
+
+                    # Agregar el testimonio si se proporciona
+                    if testimonio:
+                        tarea['testimonio'] = testimonio
+
+        with open('tareas.json', 'w') as json_file:
+            json.dump(tareas, json_file, indent=2)
+
+        # Devolver las tareas actualizadas en la respuesta
+        return jsonify(success=True, tareas_actualizadas=tareas)
+    else:
+        return jsonify(success=False, error='Índice no proporcionado')
 
 ############################################################################################
 
@@ -95,7 +124,7 @@ def hora_silenciosa():
     nombre_dia = dias_semana[fecha_actual.strftime('%A').capitalize()]
     if request.method =='POST':
         if usuario_ha_enviado_formulario_hoy(usuario):
-            return render_template('formulario_ya_enviado.html')  # Mostrar un mensaje de error
+            return render_template('formularioEnviado.html')  # Mostrar un mensaje de error
         else:
             exp_autor = request.form['exp_autor']
             apl_vida = request.form['apl_vida']
@@ -144,7 +173,7 @@ def hora_silenciosa():
             else:
                 datos_envio = {}
 
-            fecha_actual = datetime.now().strftime('%Y-%m-%d')
+            fecha_actual = format_date(datetime.now(), format='y-MM-dd', locale='es_ES')  #datetime.now().strftime('%Y-%m-%d')
             usuario_datos = datos_envio.get(usuario, [])
             usuario_datos.append(fecha_actual)
             datos_envio[usuario] = usuario_datos
@@ -153,13 +182,13 @@ def hora_silenciosa():
                 json.dump(datos_envio, f, ensure_ascii=False, indent=4)
 
             contabilizar_puntos(usuario)
-            return render_template('thanks.html')  # Muestra mensaje de agradecimiento
+            return render_template('gracias.html')  # Muestra mensaje de agradecimiento
     # Si el método de la solicitud es GET, muestra el formulario
     return render_template('horaSilenciosa.html',rol = rol, usuario=usuario, entrada_dia_actual=devocional, fecha_actual=fecha_actual, dia=dia, nombre_dia1=nombre_dia1)
 
 
 # Ruta al archivo JSON que registra las fechas de envío de formularios
-FORMULARIOS_ENVIADOS_JSON = 'formularios_enviados.json'
+FORMULARIOS_ENVIADOS_JSON = 'formulariosEnviados.json'
 
 # Función para verificar si un usuario ya envió el formulario hoy
 def usuario_ha_enviado_formulario_hoy(usuario):
@@ -167,7 +196,7 @@ def usuario_ha_enviado_formulario_hoy(usuario):
         with open(FORMULARIOS_ENVIADOS_JSON, 'r') as f:
             datos_envio = json.load(f)
         usuario_datos = datos_envio.get(usuario, [])
-        fecha_actual = datetime.now().strftime('%Y-%m-%d')
+        fecha_actual = format_date(datetime.now(), format='y-MM-dd', locale='es_ES')  #datetime.now().strftime('%Y-%m-%d')
         return fecha_actual in usuario_datos
     return False
 
@@ -307,7 +336,7 @@ def manejar_puntos():
 
 @app.route('/tabla_puntos_sumar')
 def tabla_puntos_sumar():
-    return render_template("puntos_sumar.html")
+    return render_template("puntosSumar.html")
 
 # # Ruta para cargar y mostrar la tabla de usuarios
 # @app.route('/mostrar_usuarios')
@@ -321,7 +350,7 @@ def mostrar_usuarios_admin():
     usuarios = abrir_usuarios()
     rol = current_user.role
     usuarios_ordenados = dict(sorted(usuarios.items(), key=lambda item: item[1][2], reverse=True))
-    return render_template("puntos_sumar.html", usuarios=usuarios_ordenados, mostrar_usuarios=True, rol = rol)
+    return render_template("puntosSumar.html", usuarios=usuarios_ordenados, mostrar_usuarios=True, rol = rol)
 
 # # Ruta para cargar y mostrar la tabla de equipos
 # @app.route('/mostrar_equipos')
@@ -333,7 +362,7 @@ def mostrar_usuarios_admin():
 def mostrar_equipos_admin():
     rol = current_user.role
     equipos = abrir_equipos()
-    return render_template("puntos_sumar.html", mostrar_equipos=True, equipos=equipos, rol = rol)
+    return render_template("puntosSumar.html", mostrar_equipos=True, equipos=equipos, rol = rol)
 
 
 preguntas = []
@@ -394,7 +423,7 @@ def preguntas_anonimas():
         color_oscuro = generar_color_oscuro()
         txt += f'{cabecera_html.format(color_oscuro)} {contenido_html.format(pregunta=pregunta, votos=votos)}'
 
-    return render_template('preguntas_anonimas.html', preguntas=txt)
+    return render_template('preguntasAnonimas.html', preguntas=txt)
 
 
 """@app.route('/procesar_voto', methods=['GET'])
@@ -417,22 +446,13 @@ def procesar_voto():
     return redirect('/preguntas_anonimas')"""
 
 @app.route('/calendar')
-def index():
+def calendar():
     return render_template('calendar.html')
 
 @app.route('/events.json')
 def events_json():
     return send_from_directory('static', 'events.json')
 
-@app.route('/save_events', methods=['POST'])
-def save_events():
-    try:
-        data = request.json
-        with open('static/events.json', 'w') as json_file:
-            json.dump(data, json_file, indent=2)
-        return jsonify({'message': 'Events saved successfully'}), 200
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 @app.route('/procesar_pregunta', methods=['POST'])
 def procesar_pregunta():
     global preguntas
@@ -451,19 +471,6 @@ def procesar_pregunta():
 
     return redirect('/preguntas_anonimas')
 ############################################################################################
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
-
-@app.route('/')
-def index():
-    return render_template('horaSilenciosa.html')
-
-@app.route('/events.json')
-def events_json():
-    return send_from_directory('static', 'events.json')
 
 @app.route('/save_events', methods=['POST'])
 def save_events():
@@ -474,6 +481,15 @@ def save_events():
         return jsonify({'message': 'Events saved successfully'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+#====================================================================================================#
+
+
+
+    
+#====================================================================================================#
+
 
 if __name__ == '__main__':
     app.run(debug=True)

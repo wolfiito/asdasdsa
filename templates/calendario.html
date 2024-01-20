@@ -54,7 +54,12 @@
 
                     <div class="add-event-header">
                         <div class="title">Agregar Evento</div>
-                        <i class="fas fa-times close"></i>
+                        {% if rol == 'Admin' %}
+                            <i class="fas fa-times close"></i>
+                        {% else %}
+                            <!-- <i class="fas fa-times close"></i> -->
+                        {% endif %}
+                        
                     </div>
 
                     <div class="add-event-body">
@@ -76,17 +81,23 @@
                         </div>
 
                     </div>
-
-                    <div class="add-event-footer">
-                        <button class="add-event-btn">Agregar Evento</button>
-                    </div>
-
+                    {% if rol == "Admin" %}
+                        <div class="add-event-footer">
+                            <button class="add-event-btn">Agregar Evento</button>
+                        </div>
+                    {% endif %}
                 </div>
 
             </div>
-            <button class="add-event">
-                <i class="fas fa-plus"></i>
-            </button>
+            {% if rol == 'Admin' %}
+                <button class="add-event">
+                    <i class="fas fa-plus"></i>
+                </button>
+            {% else %}
+                <button class="add-event" style="visibility:hidden;">
+                    <i class="fas fa-plus"></i>
+                </button>
+            {% endif %}
         </div>
     </div>
 </main>

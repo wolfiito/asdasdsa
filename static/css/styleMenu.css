@@ -1,64 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
 :root{
-    --color-barra-lateral:rgb(255,255,255);
+     --color-cambiar-nombre-1: #F4D1AE;
+  --color-cambiar-nombre-2: #E8A565;
+  --color-cambiar-nombre-3: #E65353;
+  --color-cambiar-nombre-4: #66101F;
+  --color-cambiar-nombre-5: #1B2021;
 
-    --color-texto:rgb(0,0,0);
-    --color-texto-menu:rgb(134,136,144);
+    --color-barra-lateral:#F4D1AE;
 
-    --color-menu-hover:rgb(238,238,238);
-    --color-menu-hover-texto:rgb(0,0,0);
+    --color-texto: #1B2021;
+    --color-texto-menu:#1B2021;
 
-    --color-boton:rgb(0,0,0);
-    --color-boton-texto:rgb(255,255,255);
+    --color-menu-hover:#1B2021;
+    --color-menu-hover-texto:#F4D1AE;
 
-    --color-linea:rgb(180,180,180);
+    --color-boton:#1B2021;
+    --color-boton-texto:#F4D1AE;
 
-    --color-switch-base :rgb(201,202,206);
-    --color-switch-circulo:rgb(241,241,241);
+    --color-linea:#1B2021;
+
+    --color-switch-base :#1B2021;
+    --color-switch-circulo: #F4D1AE;
 
     --color-scroll:rgb(192,192,192);
     --color-scroll-hover:rgb(134,134,134);
 }
 
 .dark-mode{
-    --color-barra-lateral:rgb(44,45,49);
+    --color-barra-lateral:#1B2021;
 
-    --color-texto:rgb(255,255,255);
-    --color-texto-menu:rgb(110,110,117);
+    --color-texto:#E8A565;
+    --color-texto-menu: #E8A565;
 
-    --color-menu-hover:rgb(0,0,0);
-    --color-menu-hover-texto:rgb(238,238,238);
+    --color-menu-hover:#E65353;
+    --color-menu-hover-texto:#F4D1AE;
 
-    --color-boton:rgb(255,255,255);
-    --color-boton-texto:rgb(0,0,0);
+    --color-boton:#E65353;
+    --color-boton-texto:#F4D1AE;
 
-    --color-linea:rgb(90,90,90);
+    --color-linea:#66101F;
 
-    --color-switch-base :rgb(39,205,64);
-    --color-switch-circulo:rgb(255,255,255);
+    --color-switch-base :#F4D1AE;
+    --color-switch-circulo:#1B2021;
 
-    --color-scroll:rgb(68,69,74);
-    --color-scroll-hover:rgb(85,85,85);
-}
-
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
-}
-body{
-    height: 100vh;
-    width: 100%;
+    --color-scroll:#F4D1AE;
+    --color-scroll-hover:#66101F;
 }
 
 /*-----------------Menu*/
 .menu{
     position: fixed;
-    width: 50px;
-    height: 50px;
-    font-size: 30px;
+    width: 35px;
+    height: 35px;
+    font-size: 25px;
     display: none;
     justify-content: center;
     align-items: center;

@@ -1,11 +1,5 @@
 :root {
-  --primary-clr: #f6483c;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  --primary-clr: #E65353;
 }
 /* nice scroll bar */
 ::-webkit-scrollbar {
@@ -304,13 +298,13 @@
 }
 
 .events .event .title .event-title {
-  font-size: 2rem;
+  font-size: 1.1rem;
   font-weight: 400;
   margin-left: 20px;
 }
 .events .event .event-description {
-  font-size: 1.2rem;
-  font-weight: 200;
+  font-size: .9rem;
+  font-weight: 100;
   margin-left: 20px;
 }
 .events .event i {
@@ -323,7 +317,7 @@
 }
 
 .events .event .event-time {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   color: #878895;
   margin-left: 10px;
