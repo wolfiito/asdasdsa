@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1. maximum-scale=1, minimum-scale=1">
+    
+    <title>Agradecimiento</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styleThanks.css') }}">
+</head>
+<body>
+    <div class="thanks-container">
+        <img src="{{ url_for('static', filename='images/LogoSheragawhite.png') }}" alt="Logo" class="logo">
+        <h2 class="cita_biblica" id="gracias-message">Mensaje de Agradecimiento</h2>
+        <p class="dia_dev">Tu respuesta ha sido recibida.</p>
+    </div>
+    <script>
+        const graciasOptions = [
+    "En cada devocional, te acercas a la presencia de Dios.",
+    "La comunión diaria con Dios nutre tu espíritu.",
+    "Encuentra paz en la devoción diaria, conectándote con lo divino.",
+    "A través del devocional, fortaleces tu relación con Dios.",
+    "Tu devoción diaria es un momento sagrado de conexión con lo trascendente.",
+    "Cada devocional te invita a compartir tus pensamientos con Dios.",
+    "La devoción es un camino para sentir la guía de Dios en tu vida.",
+    "La comunión en tu devocional diario renueva tu espíritu.",
+    "A medida que te sumerges en la devoción, experimentas la cercanía de Dios.",
+    "Tu devocional diario es una puerta abierta hacia una comunión más profunda con Dios.",
+    "En la devoción diaria, descubres el amor constante de Dios por ti.",
+    "La comunión con Dios en el devocional te llena de esperanza y propósito.",
+    "Cada devocional es un recordatorio de que no estás solo; Dios está contigo.",
+    "La devoción diaria te conecta con la sabiduría eterna de Dios.",
+    "A través de la comunión en la devoción, encuentras fuerza para enfrentar desafíos.",
+    "La devoción es un tiempo para agradecer a Dios por sus bendiciones.",
+    "La comunión diaria te ayuda a descubrir la belleza en la vida que Dios ha creado.",
+    "Tu devocional diario es un faro que guía tus pasos hacia la voluntad de Dios.",
+    "Cada devocional es una oportunidad para aprender y crecer en la fe.",
+    "La comunión en el devocional diario te acerca a la plenitud espiritual.",
+];
+
+
+        const selectedGracias = graciasOptions[Math.floor(Math.random() * graciasOptions.length)];
+        const graciasMessage = document.getElementById("gracias-message");
+        graciasMessage.textContent = selectedGracias;
+
+        setTimeout(function() {
+            window.location.href = "/inicio";  // Redirige a la página de inicio de sesión
+        }, 2500);  // 5000 milisegundos = 5 segundos
+    </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/puntos.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    
+    <title>puntos</title>
+</head>
+<body>
+    <div class="menu">
+        <ion-icon name="menu-outline"></ion-icon>
+        <ion-icon name="close-outline"></ion-icon>
+    </div>
+
+    <div class="barra-lateral">
+        <div>
+            <div class="nombre-pagina">
+                <!-- <ion-icon id="cloud" name="arrow-forward"></ion-icon>-->
+                <h1>Sheraga</h1> 
+            </div>
+        </div>
+
+        <nav class="navegacion">
+            <ul>
+                <li>
+                    <a href="/inicio">
+                        <ion-icon class="fas fa-solid fa-church"></ion-icon>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/mostrar_usuarios_admin">
+                        <ion-icon class="fas fa-solid fa-book-bible"></ion-icon>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/mostrar_equipos_admin">
+                        <ion-icon class="fas fa-solid fa-person-praying"></ion-icon>
+                        <span>Equipos</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div>
+            <div class="linea"></div>
+
+            <div class="modo-oscuro">
+                <div class="info">
+                    <ion-icon name="moon"></ion-icon>
+                    <span>Dark</span>
+                </div>
+                <div class="switch">
+                    <div class="base">
+                        <div class="circulo">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="usuario">
+                <img src="static/images/{{ usuario }}.png" alt="">
+                <div class="info-usuario">
+                    <div class="nombre-email">
+                        <span class="nombre">{{ usuario }}</span>
+                        <!-- <span class="email">jhampier@gmail.com</span> -->
+                    </div>
+                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% if mostrar_usuarios %}
+        <!-- Tabla de usuarios -->
+        {% for usuario, datos in usuarios.items() %}
+        <div class="container-cards">
+            <div class="contenedor-card">
+                <div class="imagen">
+                    <!-- <img src="static/images/{{ usuario }}.png" class="img-fluid rounded-start" alt="..."> -->
+                </div>
+                <div class="body-card">
+                    {% if datos[3] == 'CB' %}
+                    {% set equipo = "Chicos del Barrio" %}
+                    {% else %}
+                    {% set equipo = "Chicas Super Poderosas" %}    
+                    {% endif %}
+                    <h5 class="card-title">{{ usuario }}</h5>
+                    <p class="card-text"><b>Equipo:</b> {{ equipo }}</p>
+                    <p class="card-text"><b>Puntos:</b> {{ datos[2] }}</p>
+                     <!-- <button>Versiculo anerior</button>
+                    <button>Compartio en la semana</button>
+                    <button>Proverbio</button> -->
+                </div>
+                {% if rol == 'Admin' %}
+                    <div class="buttons-card">    
+                        <button type="button" class="btn" title="Restar Puntos"><i class="fa-solid fa-person-circle-minus" style="color: #ffffff; font-size:18px;"></i></button>
+                        <button type="button" class="btn" title="Sumar Puntos"><i class="fa-solid fa-person-circle-plus" style="color: #ffffff; font-size:18px;"></i></button>
+                        <button type="button" class="btn" title="Compartir su HS"><i class="fa-solid fa-book-bookmark" style="color: #ffffff;"></i>
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="buttons-card" style="display: none;"></div>
+                {% endif %}
+
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if mostrar_equipos %}
+
+        <!-- Tabla de equipos -->
+        <main>
+            {% for equipo, puntos in equipos.items() %}
+                {% if equipo == "Chicos del Barrio" %}
+                    <section class="chicos">
+                        <div class="container">
+                            <img src="static/images/cuatro.png" class="container-image imagen-cuatro" alt="foto1">
+                            <img src="static/images/todos.png" class="container-image imagen-todos" alt="foto2">
+                            <img src="static/images/tres.png" class="container-image imagen-tres" alt="foto3">
+                            <img src="static/images/knd.png" class="container-image imagen-knd" alt="foto4">
+                            {% if rol == 'Admin' %}
+                                <div class="puntaje-chicos">
+                                    <h2 id="puntos-equipo-barrio">{{ puntos }}</h2>
+                                    <button onclick="sumarPuntos('CB+')" class="btn btn-success mas-chicos">+</button>
+                                    <button onclick="sumarPuntos('CB-')" class="btn btn-danger menos-chicos">-</button>   
+                                </div>
+                            {% else %}
+                                <div class="puntaje-chicos">
+                                    <h2 id="puntos-equipo-barrio">{{ puntos }}</h2>
+                                    <button onclick="sumarPuntos('CB+')" class="btn btn-success mas-chicos" style="display: none;">+</button>
+                                    <button onclick="sumarPuntos('CB-')" class="btn btn-danger menos-chicos" style="display: none;">-</button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </section>
+                {% endif %}
+                
+                {% if equipo == "Chicas Super Poderosas" %}
+                    <section class="chicas">
+                        <div class="container-chicas">
+                            <img src="static/images/chicas5.png" class="container-image imagen-bellota" alt="foto1">
+                            <img src="static/images/chicas2.png" class="container-image imagen-title" alt="foto2">
+                            <img src="static/images/chicas3.png" class="container-image imagen-burbuja" alt="foto3">
+                            <img src="static/images/chicas4.png" class="container-image imagen-todas" alt="foto4">
+                
+                            <div class="puntaje-chicas">
+                                <h2 id="puntos-equipo-poderosas">{{ puntos }}</h2>{% if rol == 'Admin' %}
+                                <button onclick="sumarPuntos('CP+')" class="btn btn-success mas-chicas">+</button>
+                                <button onclick="sumarPuntos('CP-')" class="btn btn-danger menos-chicas">-</button>
+                            </div>
+                {% else %}
+                    <button onclick="sumarPuntos('CP+')" class="btn btn-success mas-chicas" style="display: none;">+</button>
+                    <button onclick="sumarPuntos('CP-')" class="btn btn-danger menos-chicas" style="display: none;">-</button>
+                {% endif %}
+            </div>
+        </section>
+          {% endif %}
+            {% endfor %}
+    </main>
+    {% endif %}
+    
+    <script src="{{ url_for('static', filename='js/contenido.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sumarPuntosEquipo.js') }}"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

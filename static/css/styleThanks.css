@@ -1,0 +1,35 @@
+@import url('form.css');
+.thanks-container {
+    background-color: #000000;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    max-width: 100%;
+    margin: 2.6em;
+    margin-top: 2em;
+}
+
+.thanks-container .cita_biblica {
+    font-size: 1rem;
+    text-align: center!important;
+    color: #ff8299;
+}
+
+.thanks-container .dia_dev {
+    font-size: .6rem;
+    text-align: center!important;
+    color: #ff8299;
+    margin-top: 5em;
+}
+
+.logo {
+    max-width: 8em; /* Aumenta el tamaño del logo */
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 375px) {
+    .thanks-container {
+        max-width: 90%;
+    }
+}
