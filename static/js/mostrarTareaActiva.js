@@ -7,6 +7,25 @@ function toggleDescripcion(iconElement) {
     }
 }
 
+function sumarOracion(index) {
+    // Realiza una solicitud POST al servidor Flask
+    fetch('/sumar_oracion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `index=${index}`,
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Maneja la respuesta del servidor, si es necesario
+        alert(data.message);
+    })
+    .catch(error => {
+        console.error('Error al enviar la solicitud:', error);
+    });
+}
+
 function marcarCompleta(index) {
     // Pedir al usuario que ingrese su testimonio
     const testimonio = prompt("Ingresa tu testimonio:");

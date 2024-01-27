@@ -21,7 +21,7 @@ class User(UserMixin):
         self.role = role
 
 # Cargar usuarios desde el archivo JSON
-with open('usuarios.json', 'r') as users_file:
+with open('usuarios.json', 'r', encoding='utf-8') as users_file:
     users_data = json.load(users_file)
 
 # Crear objetos de usuario a partir de los datos cargados
@@ -63,14 +63,38 @@ def inicio():
 ############################ Bloque para la oración ############################
 
 def cargar_tareas():
-    with open('tareas.json', 'r') as json_file:
+    with open('tareas.json', 'r', encoding='utf-8') as json_file:
         tareas = json.load(json_file)
     return tareas
 
 @app.route('/oracion')
+@login_required
 def mostrarTareasActivas():
     tareas = cargar_tareas()
-    return render_template('mostrarTareaActiva.html', tareas=tareas)
+    rol = current_user.role
+    return render_template('mostrarTareaActiva.html', tareas=tareas, rol=rol)
+
+@app.route('/sumar_oracion', methods=['POST'])
+def sumar_veces_oradas():
+    # Obtén el índice del elemento que se está sumando
+    index = int(request.form.get('index')) - 1
+
+    # Lee el JSON desde el archivo
+    with open('tareas.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    if 0 <= index < len(data):
+        # Accede al elemento en la posición especificada y actualiza el 'total'
+        print(data[index])
+        data[index]['total'] += 1
+        print(data[index])
+        # Escribe el JSON actualizado de vuelta al archivo
+        with open('tareas.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4)
+
+        return jsonify({'message': 'Operación exitosa'})
+    else:
+        return jsonify({'message': 'Índice fuera de rango'}), 400
 
 @app.route('/marcar_completa', methods=['POST'])
 def marcar_completa():
@@ -81,7 +105,7 @@ def marcar_completa():
     if index is not None:
         index = int(index) - 1
 
-        with open('tareas.json', 'r') as json_file:
+        with open('tareas.json', 'r', encoding='utf-8') as json_file:
             tareas = json.load(json_file)
 
             if 0 <= index < len(tareas):
@@ -95,7 +119,7 @@ def marcar_completa():
                     if testimonio:
                         tarea['testimonio'] = testimonio
 
-        with open('tareas.json', 'w') as json_file:
+        with open('tareas.json', 'w', encoding='utf-8') as json_file:
             json.dump(tareas, json_file, indent=2)
 
         # Devolver las tareas actualizadas en la respuesta
@@ -103,12 +127,13 @@ def marcar_completa():
     else:
         return jsonify(success=False, error='Índice no proporcionado')
 
+
 ############################################################################################
 
 
 ############################ Bloque para la Hora Silenciosa ############################
 from datetime import datetime, timedelta
-from babel.dates import format_date
+from babel.dates import format_date, format_datetime
 import pytz
 zhl = pytz.timezone('America/Mexico_City')
 dias_semana = {'Monday': 'Lunes','Tuesday': 'Martes','Wednesday': 'Miércoles','Thursday': 'Jueves','Friday': 'Viernes','Saturday': 'Sábado','Sunday': 'Domingo'}
@@ -116,10 +141,11 @@ dias_semana = {'Monday': 'Lunes','Tuesday': 'Martes','Wednesday': 'Miércoles','
 @app.route('/hora_silenciosa', methods=['GET', 'POST'])
 @login_required
 def hora_silenciosa():
+
     rol = current_user.role
     usuario = current_user.id
     devocional, fecha_actual, dia, nombre_dia1 = devocional_del_dia()
-    print(f'Mirame soy un pixie: {devocional}')
+
     fecha_actual = datetime.now(zhl)
     nombre_dia = dias_semana[fecha_actual.strftime('%A').capitalize()]
     if request.method =='POST':
@@ -134,7 +160,7 @@ def hora_silenciosa():
             semana_actual = f'{fecha_domingo_anterior.day} al {fecha_sabado_siguiente.day} de {format_date(fecha_domingo_anterior, "MMMM", locale="es")}'
             ruta_archivo = os.path.join('data', f'hora_silenciosa_de_{usuario}.json')
             if os.path.exists(ruta_archivo):
-                with open(ruta_archivo, 'r') as f:
+                with open(ruta_archivo, 'r', encoding='utf-8') as f:
                     datos_usuario = json.load(f)
             else:
                 datos_usuario = {
@@ -164,21 +190,21 @@ def hora_silenciosa():
                         'pregunta': dudas
                     }]
                 })
-            with open(ruta_archivo, 'w') as f:
+            with open(ruta_archivo, 'w', encoding='utf-8') as f:
                 json.dump(datos_usuario, f, ensure_ascii=False, indent=4)
             # Cierra la sesión del usuario
             if os.path.exists(FORMULARIOS_ENVIADOS_JSON):
-                with open(FORMULARIOS_ENVIADOS_JSON, 'r') as f:
+                with open(FORMULARIOS_ENVIADOS_JSON, 'r', encoding='utf-8') as f:
                     datos_envio = json.load(f)
             else:
                 datos_envio = {}
 
-            fecha_actual = format_date(datetime.now(), format='y-MM-dd', locale='es_ES')  #datetime.now().strftime('%Y-%m-%d')
+            fecha_actual = fecha_actual = fecha_actual.strftime('%Y-%m-%d %H')
             usuario_datos = datos_envio.get(usuario, [])
             usuario_datos.append(fecha_actual)
             datos_envio[usuario] = usuario_datos
 
-            with open(FORMULARIOS_ENVIADOS_JSON, 'w') as f:
+            with open(FORMULARIOS_ENVIADOS_JSON, 'w', encoding='utf-8') as f:
                 json.dump(datos_envio, f, ensure_ascii=False, indent=4)
 
             contabilizar_puntos(usuario)
@@ -192,11 +218,13 @@ FORMULARIOS_ENVIADOS_JSON = 'formulariosEnviados.json'
 
 # Función para verificar si un usuario ya envió el formulario hoy
 def usuario_ha_enviado_formulario_hoy(usuario):
+    fecha_actual = datetime.now(zhl)
     if os.path.exists(FORMULARIOS_ENVIADOS_JSON):
-        with open(FORMULARIOS_ENVIADOS_JSON, 'r') as f:
+        with open(FORMULARIOS_ENVIADOS_JSON, 'r', encoding='utf-8') as f:
             datos_envio = json.load(f)
         usuario_datos = datos_envio.get(usuario, [])
-        fecha_actual = format_date(datetime.now(), format='y-MM-dd', locale='es_ES')  #datetime.now().strftime('%Y-%m-%d')
+        fecha_actual = fecha_actual = fecha_actual.strftime('%Y-%m-%d %H')
+        print(f"HOLA SOY NUEVA{fecha_actual}")
         return fecha_actual in usuario_datos
     return False
 
@@ -205,6 +233,7 @@ def devocional_del_dia():
         devocionales = json.load(archivo_hs)
 
     fecha_actual = datetime.now(zhl)
+    print(f"Aquiii sooy el devocional fecha: {fecha_actual}")
     nombre_dia = dias_semana[fecha_actual.strftime('%A')]
     fecha_actual = fecha_actual.strftime(f'{nombre_dia} %d, %Y').capitalize()
     entrada_dia_actual = None
@@ -232,7 +261,7 @@ def abrir_usuarios():
     datos_usuarios = None
 
     if os.path.exists(ruta_usuarios):
-        with open(ruta_usuarios, 'r') as f:
+        with open(ruta_usuarios, 'r', encoding='utf-8') as f:
             datos_usuarios = json.load(f)
 
     return datos_usuarios
@@ -242,7 +271,7 @@ def abrir_equipos():
     datos_equipo = None
 
     if os.path.exists(ruta_equipo):
-        with open(ruta_equipo, 'r') as f:
+        with open(ruta_equipo, 'r', encoding='utf-8') as f:
             datos_equipo = json.load(f)
 
     return datos_equipo
@@ -251,13 +280,13 @@ def abrir_equipos():
 def escribir_usuarios(datos_usuarios):
     ruta_usuarios = 'usuarios.json'
 
-    with open(ruta_usuarios, 'w') as f:
+    with open(ruta_usuarios, 'w', encoding='utf-8') as f:
         json.dump(datos_usuarios, f, ensure_ascii=False)
 
 def escribir_equipos(datos_equipos):
     ruta_equipos = 'equipos.json'
 
-    with open(ruta_equipos, 'w') as f:
+    with open(ruta_equipos, 'w', encoding='utf-8') as f:
         json.dump(datos_equipos, f, ensure_ascii=False)
 
 def contabilizar_puntos(usuario):
@@ -366,7 +395,7 @@ def mostrar_equipos_admin():
 
 
 preguntas = []
-with open('preguntas.json', 'r') as json_file:
+with open('preguntas.json', 'r', encoding='utf-8') as json_file:
     preguntas = json.load(json_file)
 
 import random
@@ -398,7 +427,7 @@ def procesar_voto():
 
                 break
 
-        with open('preguntas.json', 'w') as json_file:
+        with open('preguntas.json', 'w', encoding='utf-8') as json_file:
             json.dump(preguntas, json_file)
 
     return redirect('/preguntas_anonimas')
@@ -440,7 +469,7 @@ def procesar_voto():
         if pregunta == pregunta2:
             bloque['votos'] = bloque['votos']+1
             break;
-    with open('preguntas.json', 'w') as json_file:
+    with open('preguntas.json', 'w', encoding='utf-8') as json_file:
         json.dump(preguntas, json_file)
     # Redirige a la página principal u otra ruta según tus necesidades
     return redirect('/preguntas_anonimas')"""
@@ -459,12 +488,12 @@ def procesar_pregunta():
     nueva_pregunta = request.json.get('pregunta')
     print("Soy la nueva pregunta: ")
     if nueva_pregunta:
-        with open('preguntas.json', 'r') as json_file:
+        with open('preguntas.json', 'r', encoding='utf-8') as json_file:
             preguntas = json.load(json_file)
 
         preguntas.append({"texto": nueva_pregunta, "votos": 0})
 
-        with open('preguntas.json', 'w') as json_file:
+        with open('preguntas.json', 'w', encoding='utf-8') as json_file:
             json.dump(preguntas, json_file, indent=2)
 
         return jsonify({"status": "success"})
@@ -476,7 +505,7 @@ def procesar_pregunta():
 def save_events():
     try:
         data = request.json
-        with open('static/events.json', 'w') as json_file:
+        with open('static/events.json', 'w', encoding='utf-8') as json_file:
             json.dump(data, json_file, indent=2)
         return jsonify({'message': 'Events saved successfully'}), 200
     except Exception as e:
@@ -484,10 +513,23 @@ def save_events():
 
 
 #====================================================================================================#
+# """
+# [miércoles 18:46] Esteban Garciaa
+# SELECT NumProveedor, Cli_Id, OrdenCompra, Folio, UUID, Estatus, FechaRecepcion,
+
+#   replace(replace( replace(	REPLACE(REPLACE( REPLACE(UltimoMensaje, 'C:\_MasterEDI\OBJ_GENERIC\', ''), 'InvoiceIn\', ''), 'MEDI_INVOICE_', ''), 'Renombrando documento ', ''), '.reqretryxtemp', ''), '.reqretry', '') Mensaje
+
+#   FROM [Masteredi].[dbo].[EdiControlDoctos]
+
+#   --WHERE Estatus = 0
+
+#   ORDER BY Id ASC;
+# [miércoles 18:47] Esteban Garciaa
+# 192.168.1.125 / sa / srvdesarrollo
+# """
 
 
 
-    
 #====================================================================================================#
 
 
