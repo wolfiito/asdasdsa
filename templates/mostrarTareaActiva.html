@@ -7,109 +7,79 @@
 
 
 {% block contenido %}
-
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="peticiones-tab" data-bs-toggle="tab" data-bs-target="#peticionesActivas" type="button" role="tab" aria-controls="peticionesActivas" aria-selected="true">Peticiones Activas</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="respuestas-tab" data-bs-toggle="tab" data-bs-target="#respuestas" type="button" role="tab" aria-controls="respuestas" aria-selected="false">Peticiones Respondidas</button>
-        </li>
-        <!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
-        </li> -->
-    </ul>
-
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="peticionesActivas" role="tabpanel" aria-labelledby="peticiones-tab">
-            <div class="contenedor-de-peticiones">
-                {% if tareas %}
-                    {% if not tareas | selectattr('isActive', 'equalto', 'True') | list %}
-                        <p>No hay tareas disponiblesasdsad.</p>
-                    {% else %}
-                        <div class="contenedor-peticiones">
-                            {% for tarea in tareas %}
-                                {% if tarea['isActive'] == "True" %}
-                                    <div class="contenedor-peticion">
-                                        <div class="peticion">
-                                            <div class="titulo">
-                                                <h2>{{ tarea['titulo'] }}</h2>
-                                            </div>
-                                            <div class="botones">
-                                                <ion-icon name="hand-right" onclick="sumarOracion('{{ loop.index }}')"></ion-icon>
-                                                {% if rol == 'Admin'  %}
-                                                    <ion-icon name="checkmark-circle" onclick="marcarCompleta('{{ loop.index }}')"></ion-icon>
-                                                {% endif %}
-                                                <ion-icon id="desc" name="chevron-forward-circle"
-                                                onclick="toggleDescripcion(this)"></ion-icon>
-                                            </div>
-                                        </div>
-                                        <div class="descripcion">
-                                            {{ tarea['descripcion'] }}
-                                        </div>
+<div class="contenedor-oracion">
+    
+    <div class="navegador-oracion">
+        <button>Agregar nueva Tarea</button>
+        <button>Mostrar Tareas Activas</button>
+        <button>Mostrar Tareas Finalizadas</button>
+    </div>
+    
+    <div class="contenedor-peticiones">
+        {% if tareas %}
+            {% if not tareas | selectattr('isActive', 'equalto', 'True') | list %}
+                <p>No hay tareas disponiblesasdsad.</p>
+            {% else %}
+                    {% for tarea in tareas %}
+                        {% if tarea['isActive'] == "True" %}
+                            <div class="contenedor-peticion">
+                                <div class="peticion">
+                                    <div class="titulo">
+                                        <h2>{{ tarea['titulo'] }}</h2>
                                     </div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% else %}
-                    <p>No hay tareas disponibles.</p>
-                {% endif %}
-            </div>
-        </div>
-        <div class="tab-pane fade" id="respuestas" role="tabpanel" aria-labelledby="respuestas-tab">
-            <div class="contenedor-de-peticiones">
-                {% if tareas %}
-                    {% if not tareas | selectattr('isActive', 'equalto', 'False') | list %}
-                        <p>No hay oraciones respondidas</p>
-                    {% else %}
-                        <div class="contenedor-peticiones">
-                            {% for tarea in tareas %}
-                                {% if tarea['isActive'] == "False" %}
-                                    <div class="contenedor-peticion">
-                                        <div class="peticion">
-                                                <div class="titulo">
-                                                    <h2>{{ tarea['titulo'] }}</h2>
-                                                </div>
-                                            <div class="botones">
-                                                <ion-icon id="desc" name="chevron-forward-circle"
-                                                onclick="toggleDescripcion(this)"></ion-icon>
-                                            </div>
-                                        </div>
-                                        <div class="descripcion">
-                                            <strong>Descripción: </strong>{{ tarea['descripcion'] }} <br>
-                                            <strong>Fecha de inicio: </strong>{{ tarea['fechaInicio'] }} <br>
-                                            <strong>Fecha de respuesta: </strong>{{ tarea['fechaFinal'] }} <br>
-                                            <strong>Testimonio: </strong>{{ tarea['testimonio'] }} <br>
-                                            <strong>El número de veces que alguien oro por esta petición fue de: </strong>{{ tarea['total'] }}
-                                        </div>
+                                    <div class="botones">
+                                        <ion-icon name="hand-right" onclick="sumarOracion('{{ loop.index }}')"></ion-icon>
+                                        {% if rol == 'Admin'  %}
+                                            <ion-icon name="checkmark-circle" onclick="marcarCompleta('{{ loop.index }}')"></ion-icon>
+                                        {% endif %}
+                                        <ion-icon id="desc" name="chevron-forward-circle"
+                                        onclick="toggleDescripcion(this)"></ion-icon>
                                     </div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% else %}
-                    <p>No hay tareas disponibles.</p>
-                {% endif %}
-            </div>
-        </div>
-        <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-            <h2>Agregar Motivo de Oración</h2>
-
-            <form id="formMotivoOracion">
-                <label for="titulo">Título:</label>
-                <input type="text" id="titulo" name="titulo" required>
-                <br>
-
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" required></textarea>
-                <br>
-
-                <button type="button" onclick="agregarMotivoOracion()">Agregar Motivo de Oración</button>
-            </form>
-        </div>
-    </div> -->
-
+                                </div>
+                                <div class="descripcion">
+                                    {{ tarea['descripcion'] }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+            {% endif %}
+        {% else %}
+            <p>No hay tareas disponibles.</p>
+        {% endif %}
+        {% if tareas %}
+            {% if not tareas | selectattr('isActive', 'equalto', 'False') | list %}
+                <p>No hay oraciones respondidas</p>
+            {% else %}
+                <div class="contenedor-peticiones">
+                    {% for tarea in tareas %}
+                        {% if tarea['isActive'] == "False" %}
+                            <div class="contenedor-peticion">
+                                <div class="peticion">
+                                        <div class="titulo">
+                                            <h2>{{ tarea['titulo'] }}</h2>
+                                        </div>
+                                    <div class="botones">
+                                        <ion-icon id="desc" name="chevron-forward-circle"
+                                        onclick="toggleDescripcion(this)"></ion-icon>
+                                    </div>
+                                </div>
+                                <div class="descripcion">
+                                    <strong>Descripción: </strong>{{ tarea['descripcion'] }} <br>
+                                    <strong>Fecha de inicio: </strong>{{ tarea['fechaInicio'] }} <br>
+                                    <strong>Fecha de respuesta: </strong>{{ tarea['fechaFinal'] }} <br>
+                                    <strong>Testimonio: </strong>{{ tarea['testimonio'] }} <br>
+                                    <strong>El número de veces que alguien oro por esta petición fue de: </strong>{{ tarea['total'] }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% else %}
+            <p>No hay tareas disponibles.</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock contenido %}
 
 

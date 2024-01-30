@@ -1,23 +1,30 @@
-.contenedor-de-peticiones {
-    max-width: 100%;
-    height: 100vh;
+.contenedor-oracion {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    overflow: hidden;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background-color: aqua;
+}
+
+.navegador-oracion {
+    align-self: flex-start; /* Cambiado de justify-self a align-self */
+}
+
+/* Asegúrate de que los botones en el navegador no se centren */
+.navegador-oracion button {
+    margin: 5px; /* Puedes ajustar el margen según sea necesario */
 }
 
 .contenedor-peticiones {
-    background-color: black;
+    position: relative;
+    justify-self: center;
+    background-color: rgb(248, 122, 122);
     width: 80%;
     overflow-y: auto;
     max-height: 80vh;
     padding: 15px;
-}
-
-.contenedor-peticiones h1 {
-    text-align: center;
 }
 
 .contenedor-peticion {
@@ -27,6 +34,7 @@
     box-sizing: border-box;
 }
 
+/*
 .peticion {
     display: flex;
     flex-direction: row;
@@ -41,7 +49,7 @@
 #desc {
     cursor: pointer;
     transition: transform 0.3s ease;
-    /* Agregado para una transición suave de rotación */
+    /* Agregado para una transición suave de rotación 
 }
 
 .botones ion-icon {
@@ -52,14 +60,14 @@
 .descripcion {
     margin-top: 10px;
     display: none;
-    /* Oculta inicialmente la descripción */
+    /* Oculta inicialmente la descripción 
 }
 
 .rotar {
     transform: rotate(90deg);
-    /* Rotación inicial, ajusta según sea necesario */
+    /* Rotación inicial, ajusta según sea necesario 
 }
 
 .descripcion-visible {
     display: block;
-}
+} */
