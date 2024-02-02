@@ -1,9 +1,85 @@
 :root{
-    --background: #fff;
+
+    --color-cambiar-nombre-1: #F4D1AE;
+    --color-cambiar-nombre-2: #E8A565;
+    --color-cambiar-nombre-3: #E65353;
+    --color-cambiar-nombre-4: #66101F;
+    --color-cambiar-nombre-5: #1B2021; 
+
+    /* CALENDARIO */
+    --primary-clr:            #E65353;
+    --color-texto-calendario: #1B2021;
+    --color-barra-calendario: #66101F;
+    --background-calendario:  #f4d1ae57;
+    --border-calendar:        #E8A565;
+    --color-subs-calendario:  #E65353;
+    
+    /* MENÚ */
+    --color-barra-lateral:    #F4D1AE;
+    --color-texto:            #1B2021;
+    --color-texto-menu:       #1B2021;
+    --color-menu-hover:       #1B2021;
+    --color-menu-hover-texto: #F4D1AE;
+    --color-boton-texto:      #F4D1AE;
+    --color-boton:            #1B2021;
+    --color-boton-circulo:    #1B2021;
+    --color-circulo:          #E8A565;
+    --color-linea:            #1B2021;
+    --color-switch-base :     #1B2021;
+    --color-switch-circulo:   #F4D1AE;
+    --color-scroll:           #c0c0c0;
+    --color-scroll-hover:     #868686;
+
+    /* HS */
+    --color-text-boton: #F4D1AE;
+    --color-titulo:     #1B2021;
+    --color-cita:       #E8A565;
+    --color-fecha:      #1B2021;
+    --color-texto:      #1B2021;
+    --color-titulos:    #E65353;
+    --color-borde-vive: #E65353;
+
+    /* BASE */
+    --background:#f4d1ae34;
 }
 
 .dark-mode{
-    --background: #1B2021;
+
+    /* CALENDARIO */
+    --primary-clr:            #E65353;
+    --color-texto-calendario: #E8A565;
+    --color-barra-calendario: #E8A565;
+    --background-calendario:  #1B2021;
+    --border-calendar:        #F4D1AE;
+    --color-subs-calendario:  #F4D1AE;
+
+    /* MENÚ */
+    --color-barra-lateral:   #1B2021;
+    --color-texto:           #E8A565;
+    --color-texto-menu:      #E8A565;
+    --color-menu-hover:      #E65353;
+    --color-menu-hover-texto:#F4D1AE;
+    --color-boton-texto:     #1B2021;
+    --color-boton:           #F4D1AE;
+    --color-circulo:         #1B2021;
+    --color-boton-circulo:   #F4D1AE;
+    --color-linea:           #66101F;
+    --color-switch-base :    #F4D1AE;
+    --color-switch-circulo:  #1B2021;
+    --color-scroll:          #F4D1AE;
+    --color-scroll-hover:    #66101F;
+
+    /* HS */
+    --color-text-boton: #F4D1AE;
+    --color-titulo:     #F4D1AE;
+    --color-cita:       #E8A565;
+    --color-fecha:      #F4D1AE;
+    --color-texto:      #F4D1AE;
+    --color-titulos:    #E8A565;
+    --color-borde-vive: #E65353; 
+
+    /* BASE */
+    --background:#66101F;
 }
 
 *{

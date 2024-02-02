@@ -1,109 +1,109 @@
-{% extends 'base.html' %}
+{% extends 'menu.html' %}
 
 {% block head %}
-    {{ super() }}
-    <link rel="stylesheet" type="text/css" href="../static/css/styleCalendar.css">
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="../static/css/styleCalendar.css">
 {% endblock head %}
 
 {% block title %}
-    {{ super() }}
-    Dashboard
+{{ super() }}
+Dashboard
 {% endblock title %}
+{% block menu %}
+{{ super() }}
+
+{% endblock menu %}
 
 {% block contenido %}
-<main>
-
-
-    <div class="container-calendar">
-        <div class="container">
-            <div class="left">
-                <div class="calendar">
-                    <div class="month">
-                        <i class="fas fa-angle-left prev"></i>
-                        <div class="date">december 2015</div>
-                        <i class="fas fa-angle-right next"></i>
+<div class="container-calendar">
+    <div class="container">
+        <div class="left">
+            <div class="calendar">
+                <div class="month">
+                    <i class="fas fa-angle-left prev"></i>
+                    <div class="date">december 2015</div>
+                    <i class="fas fa-angle-right next"></i>
+                </div>
+                <div class="weekdays">
+                    <div>Dom</div>
+                    <div>Lun</div>
+                    <div>Mar</div>
+                    <div>Mié</div>
+                    <div>Jue</div>
+                    <div>Vie</div>
+                    <div>Sáb</div>
+                </div>
+                <div class="days"></div>
+                <div class="goto-today">
+                    <div class="goto">
+                        <input type="text" placeholder="mm/yyyy" class="date-input" />
+                        <button class="goto-btn">Ir</button>
                     </div>
-                    <div class="weekdays">
-                        <div>Domingo</div>
-                        <div>Lunes</div>
-                        <div>Martes</div>
-                        <div>Miércoles</div>
-                        <div>Jueves</div>
-                        <div>Viernes</div>
-                        <div>Sábado</div>
-                    </div>
-                    <div class="days"></div>
-                    <div class="goto-today">
-                        <div class="goto">
-                            <input type="text" placeholder="mm/yyyy" class="date-input" />
-                            <button class="goto-btn">Ir</button>
-                        </div>
-                        <button class="today-btn">Hoy</button>
-                    </div>
+                    <button class="today-btn">Hoy</button>
                 </div>
             </div>
-            <div class="right">
-                <div class="today-date">
-                    <div class="event-day">wed</div>
-                    <div class="event-date">12th december 2022</div>
-                </div>
-
-                <div class="events"></div>
-
-                <div class="add-event-wrapper">
-
-                    <div class="add-event-header">
-                        <div class="title">Agregar Evento</div>
-                        {% if rol == 'Admin' %}
-                            <i class="fas fa-times close"></i>
-                        {% else %}
-                            <!-- <i class="fas fa-times close"></i> -->
-                        {% endif %}
-                        
-                    </div>
-
-                    <div class="add-event-body">
-
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Nombre del Evento" class="event-name" />
-                        </div>
-
-                        <div class="add-event-input">
-                            <input type="text" class="event-description" placeholder="Descripción del evento">
-                        </div>
-
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Hora de Inicio" class="event-time-from" />
-                        </div>
-
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Hora de Fin" class="event-time-to" />
-                        </div>
-
-                    </div>
-                    {% if rol == "Admin" %}
-                        <div class="add-event-footer">
-                            <button class="add-event-btn">Agregar Evento</button>
-                        </div>
-                    {% endif %}
-                </div>
-
-            </div>
-            {% if rol == 'Admin' %}
-                <button class="add-event">
-                    <i class="fas fa-plus"></i>
-                </button>
-            {% else %}
-                <button class="add-event" style="visibility:hidden;">
-                    <i class="fas fa-plus"></i>
-                </button>
-            {% endif %}
         </div>
+        <div class="right">
+            <div class="today-date">
+                <div class="event-day">wed</div>
+                <div class="event-date">12th december 2022</div>
+            </div>
+
+            <div class="events"></div>
+
+            <div class="add-event-wrapper">
+
+                <div class="add-event-header">
+                    <div class="title">Agregar Evento</div>
+                    {% if rol == 'Admin' %}
+                    <i class="fas fa-times close"></i>
+                    {% else %}
+                    <!-- <i class="fas fa-times close"></i> -->
+                    {% endif %}
+
+                </div>
+
+                <div class="add-event-body">
+
+                    <div class="add-event-input">
+                        <input type="text" placeholder="Nombre del Evento" class="event-name" />
+                    </div>
+
+                    <div class="add-event-input">
+                        <input type="text" class="event-description" placeholder="Descripción del evento">
+                    </div>
+
+                    <div class="add-event-input">
+                        <input type="text" placeholder="Hora de Inicio" class="event-time-from" />
+                    </div>
+
+                    <div class="add-event-input">
+                        <input type="text" placeholder="Hora de Fin" class="event-time-to" />
+                    </div>
+
+                </div>
+                {% if rol == "Admin" %}
+                <div class="add-event-footer">
+                    <button class="add-event-btn">Agregar Evento</button>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+        {% if 'Admin' == 'Admin' %}
+        <button class="add-event">
+            <i class="fas fa-plus"></i>
+        </button>
+        {% else %}
+        <button class="add-event" style="visibility:hidden;">
+            <i class="fas fa-plus"></i>
+        </button>
+        {% endif %}
     </div>
-</main>
+</div>
 {% endblock contenido %}
 
 {% block script %}
-    {{ super() }}
+{{ super() }}
     <script src="../static/js/calendario.js"></script>
 {% endblock script %}

@@ -1,26 +1,3 @@
-:root{
-
-    --color-text-boton: #F4D1AE;
-    --color-titulo: #1B2021;
-    --color-cita:#E8A565;
-    --color-fecha:  #1B2021;
-    --color-texto:#1B2021;
-    --color-titulos: #E65353;
-    --color-borde-vive:#E65353 ;
- 
- }
- 
- .dark-mode{
-     --color-text-boton: #F4D1AE;
-    --color-titulo: #F4D1AE;
-    --color-cita:#E8A565;
-    --color-fecha:  #F4D1AE;
-    --color-texto:#F4D1AE;
-    --color-titulos: #E8A565;
-    --color-borde-vive:#E65353 ; 
- }
- 
- 
  .container{
      grid-column: 1;
      display: flex;

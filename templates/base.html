@@ -1,23 +1,29 @@
 
-{% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/styleMenu.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/estilos.css') }}"> -->
-    <link rel="icon" href="static\images\logosheraga.png" type="image/x-icon">
-{% endblock head %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="icon" href="static\images\logosheraga.png" type="image/x-icon">
+    {% endblock head %}
 
-<title>
-    {% block title %}
-        ICBA-Jovenes |  
-    {% endblock title %}
-</title>
+    <title>
+        {% block title %}
+            ICBA-Jovenes |  
+        {% endblock title %}
+    </title>
+</head>
 
-
-{% include 'menu.html' %}
-
+<body>
+    <header>
+        <nav>
+            {% block menu %}
+            
+            {% endblock menu %}
+        </nav>
+    </header>
 <main class="contenedor-principal">
     {% block contenido %}
         
@@ -26,9 +32,7 @@
 
 
 {% block script %}
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="{{ url_for('static', filename='js/contenido.js') }}"></script>
-    <script src="../static/js/menu.js"></script>
+    
 {% endblock script %}
-
+</body>
+</html>

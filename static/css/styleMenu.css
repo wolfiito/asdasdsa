@@ -1,70 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
-:root{
-     --color-cambiar-nombre-1: #F4D1AE;
-  --color-cambiar-nombre-2: #E8A565;
-  --color-cambiar-nombre-3: #E65353;
-  --color-cambiar-nombre-4: #66101F;
-  --color-cambiar-nombre-5: #1B2021;
-
-    --color-barra-lateral:#F4D1AE;
-
-    --color-texto: #1B2021;
-    --color-texto-menu:#1B2021;
-
-    --color-menu-hover:#1B2021;
-    --color-menu-hover-texto:#F4D1AE;
-
-    --color-boton:#1B2021;
-    --color-boton-texto:#F4D1AE;
-
-    --color-linea:#1B2021;
-
-    --color-switch-base :#1B2021;
-    --color-switch-circulo: #F4D1AE;
-
-    --color-scroll:rgb(192,192,192);
-    --color-scroll-hover:rgb(134,134,134);
-}
-
-.dark-mode{
-    --color-barra-lateral:#1B2021;
-
-    --color-texto:#E8A565;
-    --color-texto-menu: #E8A565;
-
-    --color-menu-hover:#E65353;
-    --color-menu-hover-texto:#F4D1AE;
-
-    --color-boton:#E65353;
-    --color-boton-texto:#F4D1AE;
-
-    --color-linea:#66101F;
-
-    --color-switch-base :#F4D1AE;
-    --color-switch-circulo:#1B2021;
-
-    --color-scroll:#F4D1AE;
-    --color-scroll-hover:#66101F;
-}
-
 /*-----------------Menu*/
 .menu{
     position: fixed;
-    width: 35px;
-    height: 35px;
-    font-size: 25px;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
     display: none;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     cursor: pointer;
-    background-color: var(--color-boton);
-    color: var(--color-boton-texto);
+    background-color: var(--color-circulo);
+    color: var(--color-boton-circulo);
     right: 15px;
     top: 15px;
     z-index: 100;
 }
-
 
 /*----------------Barra Lateral*/
 .barra-lateral{
@@ -84,6 +34,7 @@
 .mini-barra-lateral{
     width: 80px;
 }
+
 .barra-lateral span{
     width: 100px;
     white-space: nowrap;
@@ -96,7 +47,6 @@
     opacity: 0;
     width: 0;
 }
-
 /*------------> Nombre de la página */
 .barra-lateral .nombre-pagina{
     width: 100%;
@@ -111,11 +61,6 @@
     font-size: 40px;
     cursor: pointer;
 }
-.barra-lateral .nombre-pagina span{
-    margin-left: 5px;
-    font-size: 25px;
-}
-
 
 /*------------> Botón*/
 .barra-lateral .boton{
@@ -123,8 +68,9 @@
     height: 45px;
     margin-bottom: 20px;
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
     border: none;
     border-radius: 10px;
     background-color: var(--color-boton);
@@ -134,8 +80,6 @@
     min-width: 50px;
     font-size: 40px;
 }
-
-
 /*--------------> Menu Navegación*/
 .barra-lateral .navegacion{
     height: 100%;
@@ -176,6 +120,7 @@
 }
 
 /*-----------------> Linea*/
+
 .barra-lateral .linea{
     width: 100%;
     height: 1px;
@@ -191,6 +136,7 @@
     display: flex;
     justify-content: space-between;
 }
+
 .barra-lateral .modo-oscuro .info{
     width: 150px;
     height: 45px;
@@ -281,7 +227,7 @@
 
 main{
     margin-left: 250px;
-    padding: 20px;
+    padding: 10px;
     transition: margin-left 0.5s ease;
 }
 main.min-main{
@@ -295,6 +241,7 @@ main.min-main{
     .barra-lateral .nombre-pagina{
         margin-bottom: 5px;
     }
+    
     .barra-lateral .modo-oscuro{
         margin-bottom: 3px;
     }
@@ -305,7 +252,25 @@ main.min-main{
         left: -250px;
     }
     .max-barra-lateral{
+        width: 100%;
         left: 0;
+    }
+    .barra-lateral .nombre-pagina{
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    .barra-lateral .navegador-opcion{
+        font-size: 24px;
+    }
+    .barra-lateral .boton{
+        border-radius: 15px;
+    }
+    .barra-lateral .create-new{
+        font-size: 24px;
+    }
+    .barra-lateral .titulo-nav{
+        font-size: 28px;
+        font-weight: 600;
     }
     .menu{
         display: flex;
@@ -313,6 +278,7 @@ main.min-main{
     .menu ion-icon:nth-child(2){
         display: none;
     }
+
     main{
         margin-left: 0;
     }
