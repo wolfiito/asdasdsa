@@ -1,3 +1,13 @@
+.botones-peticiones button {
+    padding: 10px;
+    margin: 5px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .contenedor-oracion {
     display: flex;
     flex-direction: column;
@@ -34,7 +44,6 @@
     box-sizing: border-box;
 }
 
-/*
 .peticion {
     display: flex;
     flex-direction: row;
@@ -49,7 +58,7 @@
 #desc {
     cursor: pointer;
     transition: transform 0.3s ease;
-    /* Agregado para una transición suave de rotación 
+    /* Agregado para una transición suave de rotación */
 }
 
 .botones ion-icon {
@@ -60,14 +69,14 @@
 .descripcion {
     margin-top: 10px;
     display: none;
-    /* Oculta inicialmente la descripción 
+    /* Oculta inicialmente la descripción */
 }
 
 .rotar {
     transform: rotate(90deg);
-    /* Rotación inicial, ajusta según sea necesario 
+    /* Rotación inicial, ajusta según sea necesario */
 }
 
 .descripcion-visible {
     display: block;
-} */
+} 

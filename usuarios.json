@@ -2,25 +2,37 @@
     "Alejandro": [
         "S0l03nt1",
         "Admin",
-        1300,
+        500,
+        "CB"
+    ],
+    "Melissa": [
+        "melissa",
+        "Admin",
+        400,
+        "CB"
+    ],
+    "Miguel": [
+        "miguel",
+        "Admin",
+        0,
         "CB"
     ],
     "Cecilia": [
         "cecilia",
         "Admin",
-        1500,
+        400,
         "CP"
     ],
     "Andres": [
         "andres",
         "User",
-        0,
+        500,
         "CB"
     ],
-    "Melissa": [
-        "melissa",
+    "Belen": [
+        "belen",
         "User",
-        500,
+        0,
         "CB"
     ],
     "Cesar": [
@@ -32,7 +44,7 @@
     "Mike": [
         "mike",
         "User",
-        600,
+        500,
         "CB"
     ],
     "Rogelio": [
@@ -44,25 +56,49 @@
     "Sofia": [
         "sofia",
         "User",
-        1100,
+        0,
         "CB"
     ],
     "Cris": [
         "cris",
         "User",
-        2100,
+        500,
         "CP"
     ],
     "Emi": [
         "emi",
         "User",
-        300,
+        0,
         "CP"
     ],
     "Luz": [
         "luz",
         "User",
+        100,
+        "CP"
+    ],
+    "Zoe": [
+        "zoe",
+        "User",
+        0,
+        "CB"
+    ],
+    "Astrid": [
+        "astrid",
+        "User",
         200,
         "CP"
+    ],
+    "Pablo": [
+        "pablo",
+        "User",
+        0,
+        "CB"
+    ],
+    "Fernanda": [
+        "fernanda",
+        "User",
+        0,
+        "CB"
     ]
 }

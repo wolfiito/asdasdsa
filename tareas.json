@@ -3,9 +3,9 @@
     "titulo": "prueba 2",
     "descripcion": "Esta es la prueba 2",
     "fechaInicio": "20-Enero-2023",
-    "fechaFinal": "19-enero-2024",
-    "testimonio": "as",
-    "isActive": "True"
+    "fechaFinal": "20-enero-2024",
+    "testimonio": "Me respondio la prueba xd",
+    "isActive": "False"
   },
   {
     "titulo": "prueba 3",
